@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  vote:
+    build: ./vote
+    depends_on:
+      - redis
+      - worker
+    ports: 
+      - "5000:80"
+        
+  result:
+    build: ./result
+    depends_on:
+      - db
+      - worker
+    ports: 
+      - "5001:4000"
+
+  db:
+    image: postgres:9.4
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+    environment:
+     # POSTGRES_PASSWORD: password
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+  redis:
+    image: redis
+
+  worker:
+    build: ./worker
+
+volumes:
+  db-data: {}
+

@@ -1,4 +1,6 @@
 *.pyc
+*.swp
+*.swo
 project.lock.json
 bin/
 obj/
